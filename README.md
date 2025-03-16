@@ -31,18 +31,19 @@ You can install it in a VM using [ProxmoxVE](https://www.proxmox.com/en/) or [VM
 ### UEFI
 
 ```
-parted --script /dev/sdX mklabel gpt && \
-parted --script /dev/sdX mkpart primary fat32 1MB 512MB --align optimal && \
-parted --script /dev/sdX set 1 esp on && \
-parted --script /dev/sdX mkpart primary ext4 512MB 10.982GB --align optimal && \
-parted --script /dev/sdX mkpart primary linux-swap 10.982GB 11.980GB --align optimal && \
-mkfs.ext4 -L NIXOS /dev/sdX2 && \
-mkswap -L SWAP /dev/sdX3 && \
-swapon /dev/sdX3 && \
-mkfs.fat -F 32 -n BOOT /dev/sdX1 && \
-mount /dev/disk/by-label/NIXOS /mnt && \
+parted --script /dev/sda mklabel gpt && \
+parted --script /dev/sda mkpart primary fat32 1MB 512MB --align optimal && \
+parted --script /dev/sda set 1 esp on && \
+parted --script /dev/sda mkpart primary ext4 512MB 768MB --align optimal && \
+parted --script /dev/sda mkpart primary f2fs 768MB 4.980GB --align optimal && \
+mkfs.fat -F 32 -n NIXBOOT /dev/sda1 && \
+mkfs.ext4 -L NIXROOT /dev/sda2 && \
+mkfs.f2fs -l NIXSTORE /dev/sda3 && \
+mount /dev/disk/by-label/NIXROOT /mnt && \
+mkdir -p /mnt/nix/ && \
+mount /dev/disk/by-label/NIXSTORE /mnt/nix && \
 mkdir -p /mnt/boot && \
-mount -o umask=077 /dev/disk/by-label/BOOT /mnt/boot && \
+mount -o umask=077 /dev/disk/by-label/NIXBOOT /mnt/boot && \
 mkdir -p /mnt/etc/nixos/
 ```
 
@@ -50,12 +51,13 @@ mkdir -p /mnt/etc/nixos/
 
 ``` 
 parted --script /dev/sdX mklabel msdos && \
-parted --script /dev/sdX mkpart primary ext4 1MB 11GB --align optimal && \
-parted --script /dev/sdX mkpart primary linux-swap 11GB 12GB --align optimal && \
-mkfs.ext4 -L NIXOS /dev/sdX1 && \
-mkswap -L SWAP /dev/sdX2 && \
-swapon /dev/sdX2 && \
-mount /dev/disk/by-label/NIXOS /mnt && \
+parted --script /dev/sdX mkpart primary ext4 1MB 256MB --align optimal && \
+parted --script /dev/sdX mkpart primary f2fs 256MB 4.980GB --align optimal && \
+mkfs.ext4 -L NIXROOT /dev/sdX1 && \
+mkfs.f2fs -l NIXSTORE /dev/sdX3 && \
+mount /dev/disk/by-label/NIXROOT /mnt && \
+mkdir -p /mnt/nix/ && \
+mount /dev/disk/by-label/NIXSTORE /mnt/nix && \
 mkdir -p /mnt/etc/nixos/
 ```
 
@@ -75,7 +77,7 @@ mkdir -p /mnt/etc/nixos/
 
 - If you are in `BIOS` mode, edit `system.nix`, remove the `UEFI` bootloader section,uncomment the `BIOS` section and replace the `device` name with your root drive.
 
-- Generate a `hardware-configuration.nix` file with `nixos-generate-config --root /mnt` and replace `/dev/disk/by-uuid` with `/dev/disk/by-label`. Use `/dev/disk/by-label/NIXOS` on the drive with `fsType = "ext4";` and if you are in `UEFI` mode `/dev/disk/by-label/BOOT` on the drive with `fsType = "vfat";` and `/dev/disk/by-label/SWAP` at the `device` in `swapDevices`. Append `"nofail"` in the options of your backup drives.
+- Edit the `hardware-configuration.nix` file accordingly to your hardware.
 
 - Install NixOS with `nixos-install --no-root-passwd`.
 
