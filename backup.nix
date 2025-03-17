@@ -29,7 +29,7 @@
       emailsender  = "sender@dieschoenewolke.de";
       emailrecipient = "recipient@dieschoenewolke.de";
       emailorga = "DieSchoeneWolke";
-      options = "--ignore-errors -q -azogHAXL --delete --delete-excluded";
+      options = "--checksums --ignore-errors -q -azogHAXL --delete --delete-excluded";
       source = "backupper@ServerToBackup.local:/FolderToBackup";
       destination = "/mnt/Backup1";
       rules =
@@ -49,7 +49,7 @@
       emailsender  = "sender@dieschoenewolke.de";
       emailrecipient = "recipient@dieschoenewolke.de";
       emailorga = "DieSchoeneWolke";
-      options = "--ignore-errors -q -azogHAXL --delete --delete-excluded";
+      options = "--checksums --ignore-errors -q -azogHAXL --delete --delete-excluded";
       source = "backupper@ServerToBackup.local:/FolderToBackup";
       destination = "/mnt/Backup2";
       rules =
@@ -69,7 +69,7 @@
       emailsender  = "sender@dieschoenewolke.de";
       emailrecipient = "recipient@dieschoenewolke.de";
       emailorga = "DieSchoeneWolke";
-      options = "--ignore-errors -q -azogHAXL --delete --delete-excluded";
+      options = "--checksums --ignore-errors -q -azogHAXL --delete --delete-excluded";
       source = "backupper@ServerToBackup.local:/FolderToBackup";
       destination = "/mnt/Backup2";
       rules =
