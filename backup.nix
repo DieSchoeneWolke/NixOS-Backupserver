@@ -44,7 +44,7 @@
       enable = true;
       schedule = "Sun *-*-* 15:00:00";
       key = "/root/.ssh/rsync.prvk";
-      logdir = "/var/log/rsync/ServerToBackup-daily/"; # Trailing slash (/) at the start is a must and end is a must
+      logdir = "/var/log/rsync/ServerToBackup-weekly/"; # Trailing slash (/) at the start is a must and end is a must
       logformat = "--Object: %n --Size: %l";
       emailsender  = "sender@dieschoenewolke.de";
       emailrecipient = "recipient@dieschoenewolke.de";
@@ -64,7 +64,7 @@
       enable = true;
       schedule = "01 *-*-* 00:04:00"
       key = "/root/.ssh/rsync.prvk";
-      logdir = "/var/log/rsync/ServerToBackup-daily/"; # Trailing slash (/) at the start is a must and end is a must
+      logdir = "/var/log/rsync/ServerToBackup-monthly/"; # Trailing slash (/) at the start is a must and end is a must
       logformat = "--Object: %n --Size: %l";
       emailsender  = "sender@dieschoenewolke.de";
       emailrecipient = "recipient@dieschoenewolke.de";
