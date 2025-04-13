@@ -1,3 +1,6 @@
+# https://paul.totterman.name/posts/nixos-rsync-backup/
+# ToDo: Multiple ssh keypairs for different machines
+
 { lib, config, pkgs, ... }:
 with lib;
 let
@@ -112,7 +115,7 @@ config.systemd = mkIf cfg.enable {
               fi
               LOG_FILE="${jobcfg.logdir}/rsync_$(date +'%d-%m-%Y_%H-%M-%S').log"
               LOG_FORMAT="${jobcfg.logformat}"
-              
+
               if rsync -e 'ssh -i ${jobcfg.key}' ${jobcfg.options} --log-file="$LOG_FILE" --log-file-format="$LOG_FORMAT" ${
                 if jobcfg.rules == "" then
                   ""
@@ -124,11 +127,9 @@ config.systemd = mkIf cfg.enable {
                   MAIL_SUBJECT="ERROR - NixOS-Pullbackup ${name} - Rsync Report"
                 else
                   MAIL_SUBJECT="SUCCESS - NixOS-Pullbackup ${name} - Rsync Report"
-                fi              
+                fi
                 (echo -e "Subject: $MAIL_SUBJECT\nFrom: ${jobcfg.emailsender}\nOrganization: ${jobcfg.emailorga}\nTo: ${jobcfg.emailrecipient}\n\n" && cat "$LOG_FILE") | ${pkgs.msmtp}/bin/msmtp -t --logfile=/var/log/msmtp/rsync.log
-              else
-                touch FAILED_"$LOG_FILE"
-              fi
+            fi
             '';
           }
         }/bin/rsync-pull-backup-${name}.sh";

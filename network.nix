@@ -14,8 +14,8 @@ networking = {
     };
   };
   nameservers = [  
-    "194.25.0.60"
-    "194.25.0.68" 
+    "84.200.69.80"
+    "84.200.70.40" 
   ];
   enableIPv6 = false;
   interfaces.<YourInterfaceHere> = {
@@ -36,6 +36,20 @@ networking = {
   settings.PasswordAuthentication = false;
   settings.KbdInteractiveAuthentication = false;
   settings.PermitRootLogin = "no";
+  };
+
+  programs.ssh = {
+  knownHosts = {
+  backup = {
+  extraHostNames = [ <YourServerToBackupIPHere> <ServerToBackup.local> ];
+  publicKeyFile = /etc/rsync/rsync.pubk;
+    };
+   };
+  extraConfig = ''
+Host <YourServerToBackupIPHere>
+ServerAliveInterval 30
+ServerAliveCountMax 6
+    '';
   };
 
   services.fail2ban = {

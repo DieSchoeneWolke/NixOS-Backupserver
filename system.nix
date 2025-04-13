@@ -35,7 +35,9 @@
   };
 
   time.timeZone = "Europe/Berlin";
+
   i18n.defaultLocale = "en_US.UTF-8";
+  
    console = {
      font = "iso10.16";
      keyMap = "de";

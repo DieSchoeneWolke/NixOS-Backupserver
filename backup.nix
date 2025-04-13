@@ -25,7 +25,7 @@
       schedule = "*-*-* 19:00:00";
       key = "/root/.ssh/rsync.prvk";
       logdir = "/var/log/rsync/ServerToBackup-daily/"; # Trailing slash (/) at the start is a must and end is a must
-      logformat = "--Object: %n --Size: %l --User: $USER";
+      logformat = "--Object: %n --Size: %l";
       emailsender  = "sender@dieschoenewolke.de";
       emailrecipient = "recipient@dieschoenewolke.de";
       emailorga = "DieSchoeneWolke";
@@ -45,7 +45,7 @@
       schedule = "Sun *-*-* 15:00:00";
       key = "/root/.ssh/rsync.prvk";
       logdir = "/var/log/rsync/ServerToBackup-daily/"; # Trailing slash (/) at the start is a must and end is a must
-      logformat = "--Object: %n --Size: %l --User: $USER";
+      logformat = "--Object: %n --Size: %l";
       emailsender  = "sender@dieschoenewolke.de";
       emailrecipient = "recipient@dieschoenewolke.de";
       emailorga = "DieSchoeneWolke";
@@ -65,7 +65,7 @@
       schedule = "01 *-*-* 00:04:00"
       key = "/root/.ssh/rsync.prvk";
       logdir = "/var/log/rsync/ServerToBackup-daily/"; # Trailing slash (/) at the start is a must and end is a must
-      logformat = "--Object: %n --Size: %l --User: $USER";
+      logformat = "--Object: %n --Size: %l";
       emailsender  = "sender@dieschoenewolke.de";
       emailrecipient = "recipient@dieschoenewolke.de";
       emailorga = "DieSchoeneWolke";
